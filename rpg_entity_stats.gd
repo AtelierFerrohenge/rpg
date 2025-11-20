@@ -3,4 +3,4 @@ class_name RpgEntityStats
 extends Resource
 
 
-@abstract func get_stats() -> Dictionary[StringName, Variant]
+@abstract func get_stat(stat_name: StringName) -> Variant
