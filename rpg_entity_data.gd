@@ -1,4 +1,4 @@
 class_name RpgEntityData
-extends Resource
+extends Node
 
 @export var base_stats: RpgEntityStats
