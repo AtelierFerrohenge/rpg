@@ -2,6 +2,8 @@ class_name StatSet
 extends Resource
 
 # Consider how to handle special non-stat modifiers
+# Export this then use that setter
+# Review the system to add more getters and setters
 var _base_stats: StatBlock = null
 # Review the need for two layers of Dictionaries
 var _modifiers: Dictionary[StringName, StatBlock] = {}
