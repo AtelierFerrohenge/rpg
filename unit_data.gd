@@ -6,6 +6,12 @@ extends Node
 @export var modifiers: Dictionary[StringName, StatModifierSet]
 
 
+# Next:
+# Move these calculations and custom stat defs to an inner
+# class of stat_set.gd that handles automatic calculation
+# whenever modifiers are changed
+# Perhaps by caching per-stage calculations are recalculating
+# only changed stages
 func calculate_stats() -> Dictionary[StringName, Variant]:
 	# Consider negative indexing support
 	# Also calculate time complexity
