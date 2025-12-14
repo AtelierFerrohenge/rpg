@@ -2,20 +2,16 @@ class_name StatSet
 extends Resource
 
 # Consider how to handle special non-stat modifiers
-# Export this then use that setter
 # Review the system to add more getters and setters
-var _base_stats: StatBlock = null
+@export var _base_stats: StatBlock = null:
+	set = _set_base_stats
+# Refresh myself on clean/dirty caching
+var total: StatBlock = null:
+	get = _get_total
+var _total_dirty: bool = true
 # Review the need for two layers of Dictionaries
 var _modifiers: Dictionary[StringName, StatBlock] = {}
 var _modifier_sets: Array[ModifierSet] = []
-# Refresh myself on clean/dirty caching
-var _total: StatBlock = null
-var _total_dirty: bool = true
-
-
-func set_base_stats(base_stats: StatBlock) -> void:
-	assert(base_stats.type == StatBlock.Type.NONE, "Base stats should not be a modifier Type.")
-	assert(base_stats.priority == -1, "Base stats should not have a modifier priority.")
 
 
 func set_modifier(name: StringName, modifier: StatBlock) -> void:
@@ -38,10 +34,16 @@ func erase_modifier(name: StringName) -> void:
 	_total_dirty = true
 
 
-func get_total() -> StatBlock:
+func _set_base_stats(value: StatBlock) -> void:
+	assert(value.type == StatBlock.Type.NONE, "Base stats should not be a modifier Type.")
+	assert(value.priority == -1, "Base stats should not have a modifier priority.")
+	_base_stats = value
+
+
+func _get_total() -> StatBlock:
 	if _total_dirty:
 		_calculate_total()
-	return _total
+	return total
 
 
 func _calculate_priority_index(modifier: StatBlock) -> int:
@@ -54,24 +56,25 @@ func _calculate_priority_index(modifier: StatBlock) -> int:
 
 
 func _calculate_total() -> void:
-	_total = _base_stats
+	total = _base_stats
 	var last_valid_index: int = 0
 	for i in range(_modifier_sets.size()):
 		if _modifier_sets[i] != null:
-			var modifier_total: StatBlock = _modifier_sets[i].get_total()
+			var modifier_total: StatBlock = _modifier_sets[i].total
 			if modifier_total != null:
-				_total = _total.modify_with(modifier_total)
+				total = total.modify_with(modifier_total)
 				last_valid_index = i
 	_modifier_sets.resize(last_valid_index)
 	_total_dirty = false
 
 
 class ModifierSet:
+	var total: StatBlock = null:
+		get = _get_total
+	var _total_dirty: bool = true
 	# Review the need for this guardrail
 	var _type: StatBlock.Type
 	var _modifiers: Dictionary[StringName, StatBlock] = {}
-	var _total: StatBlock = null
-	var _total_dirty: bool = true
 
 
 	func _init(type: StatBlock.Type) -> void:
@@ -90,17 +93,17 @@ class ModifierSet:
 		_total_dirty = true
 
 
-	func get_total() -> StatBlock:
+	func _get_total() -> StatBlock:
 		if _total_dirty:
 			_calculate_total()
-		return _total
+		return total
 
 
 	func _calculate_total() -> void:
-		_total = null
+		total = null
 		for modifier in _modifiers.values():
-			if _total != null:
-				_total = _total.modify_with(modifier)
+			if total != null:
+				total = total.modify_with(modifier)
 			else:
-				_total = modifier
+				total = modifier
 		_total_dirty = false
