@@ -47,7 +47,7 @@ func _get_total() -> StatBlock:
 
 
 func _calculate_priority_index(modifier: StatBlock) -> int:
-	assert(modifier.type != StatBlock.Type.NONE, "Modifiers should not be a NONE Type.")
+	assert(modifier.type != StatBlock.Type.NONE, "Modifiers should not be NONE Type.")
 	assert(modifier.priority >= 0, "Modifiers should not be negative priority.")
 	var result: int = 2 * modifier.priority
 	if modifier.type == StatBlock.Type.ADD:
@@ -64,7 +64,8 @@ func _calculate_total() -> void:
 			if modifier_total != null:
 				total = total.modify_with(modifier_total)
 				last_valid_index = i
-	_modifier_sets.resize(last_valid_index)
+	if last_valid_index + 1 != _modifier_sets.size():
+		_modifier_sets.resize(last_valid_index)
 	_total_dirty = false
 
 

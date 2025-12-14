@@ -18,17 +18,25 @@ func modify_with(modifier: StatBlock) -> StatBlock:
 	return result
 
 
-@abstract func _get_stat_properties() -> Array[StringName]
+@abstract func _get_stat_names() -> Array[StringName]
 
 
 func _apply_modifier(modifier: StatBlock) -> void:
-	# Review and optimize
-	# Typedef or guard property
-	for property in _get_stat_properties():
-		match modifier.type:
-			Type.ADD:
-				set(property, get(property) + modifier.get(property))
-			Type.MULTIPLY:
-				set(property, get(property) * modifier.get(property))
-			_:
-				pass # Handle this
+	# Need to make sure stats can be added or multiplied
+	assert(modifier.type != Type.NONE, "Modifiers should not be NONE Type.")
+	var modification: Callable
+	match modifier.type:
+		Type.ADD:
+			modification = _add_modifier
+		Type.MULTIPLY:
+			modification = _multiply_modifier
+	for stat: StringName in _get_stat_names():
+		modification.call(stat, modifier)
+
+
+func _add_modifier(stat: StringName, modifier: StatBlock) -> void:
+	set(stat, get(stat) + modifier.get(stat))
+
+
+func _multiply_modifier(stat: StringName, modifier: StatBlock) -> void:
+	set(stat, get(stat) * modifier.get(stat))
