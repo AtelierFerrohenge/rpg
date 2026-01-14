@@ -1,5 +1,5 @@
 @abstract
-class_name StatBlock
+class_name StatBlockOld
 extends Resource
 
 enum Type {
