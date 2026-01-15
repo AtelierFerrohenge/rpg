@@ -6,7 +6,7 @@
 #include <godot_cpp/core/gdvirtual.gen.inc>
 
 using namespace godot;
-using StatDefDictionary = TypedDictionary<StringName, Variant::Type>;
+using StatDefDictionary = TypedDictionary<StringName, int>;
 
 class StatBlock : public Resource {
     GDCLASS(StatBlock, Resource)
@@ -25,4 +25,7 @@ protected:
 
     // Review if I should return a pointer or reference instead
     GDVIRTUAL0RC_REQUIRED(StatDefDictionary, _get_stat_defs)
+
+private:
+    TypedDictionary<StringName, Variant> stats;
 };
