@@ -11,12 +11,15 @@ void StatBlock::_bind_methods() {
     ClassDB::bind_method(D_METHOD("is_modifier"), &StatBlock::is_modifier);
     ClassDB::bind_method(D_METHOD("set_modifier_type", "modifier_type"), &StatBlock::set_modifier_type);
     ClassDB::bind_method(D_METHOD("get_modifier_type"), &StatBlock::get_modifier_type);
+    ClassDB::bind_method(D_METHOD("set_modifier_priority", "modifier_priority"), &StatBlock::set_modifier_priority);
+    ClassDB::bind_method(D_METHOD("get_modifier_priority"), &StatBlock::get_modifier_priority);
 
     GDVIRTUAL_BIND(_get_stat_defs);
 
     ADD_GROUP("Modifier", "modifier_");
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "modifier", PROPERTY_HINT_GROUP_ENABLE), "set_modifier", "is_modifier");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "modifier_type", PROPERTY_HINT_ENUM, "Additive,Multiplicative"), "set_modifier_type", "get_modifier_type");
+    ADD_PROPERTY(PropertyInfo(Variant::INT, "modifier_priority"), "set_modifier_priority", "get_modifier_priority");
     
     BIND_ENUM_CONSTANT(MODIFIER_TYPE_ADD);
     BIND_ENUM_CONSTANT(MODIFIER_TYPE_MULTIPLY);
@@ -61,4 +64,12 @@ void StatBlock::set_modifier_type(ModifierType p_modifier_type) {
 
 StatBlock::ModifierType StatBlock::get_modifier_type() const {
     return modifier_type;
+}
+
+void StatBlock::set_modifier_priority(int p_modifier_priority) {
+    modifier_priority = p_modifier_priority;
+}
+
+int StatBlock::get_modifier_priority() const {
+    return modifier_priority;
 }

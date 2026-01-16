@@ -30,9 +30,10 @@ protected:
 
     void set_modifier(bool p_modifier);
     bool is_modifier() const;
-
     void set_modifier_type(ModifierType p_modifier_type);
     ModifierType get_modifier_type() const;
+    void set_modifier_priority(int p_modifier_priority);
+    int get_modifier_priority() const;
 
     // Review if I should return a pointer or reference instead
     GDVIRTUAL0RC_REQUIRED(StatDefDictionary, _get_stat_defs)
@@ -41,6 +42,7 @@ private:
     TypedDictionary<StringName, Variant> stats;
     bool modifier = false;
     ModifierType modifier_type = MODIFIER_TYPE_ADD;
+    int modifier_priority = 0;
 };
 
 VARIANT_ENUM_CAST(StatBlock::ModifierType);
