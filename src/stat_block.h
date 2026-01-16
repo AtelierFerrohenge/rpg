@@ -12,6 +12,11 @@ class StatBlock : public Resource {
     GDCLASS(StatBlock, Resource)
 
 public:
+    enum ModifierType {
+        MODIFIER_TYPE_ADD,
+        MODIFIER_TYPE_MULTIPLY,
+    };
+
     StatBlock() = default;
     ~StatBlock() override = default;
 
@@ -23,9 +28,19 @@ protected:
     bool _get(const StringName &p_name, Variant &r_ret) const;
     void _get_property_list(List<PropertyInfo> *p_list) const;
 
+    void set_modifier(bool p_modifier);
+    bool is_modifier() const;
+
+    void set_modifier_type(ModifierType p_modifier_type);
+    ModifierType get_modifier_type() const;
+
     // Review if I should return a pointer or reference instead
     GDVIRTUAL0RC_REQUIRED(StatDefDictionary, _get_stat_defs)
 
 private:
     TypedDictionary<StringName, Variant> stats;
+    bool modifier = false;
+    ModifierType modifier_type = MODIFIER_TYPE_ADD;
 };
+
+VARIANT_ENUM_CAST(StatBlock::ModifierType);
