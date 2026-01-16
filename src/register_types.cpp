@@ -7,6 +7,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "stat_block.h"
+#include "stat_set.h"
 
 using namespace godot;
 
@@ -16,6 +17,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
         return;
     }
     GDREGISTER_VIRTUAL_CLASS(StatBlock);
+    GDREGISTER_CLASS(StatSet);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

@@ -1,4 +1,4 @@
-class_name StatSet
+class_name StatSetOld
 extends Resource
 
 # Consider how to handle special non-stat modifiers
