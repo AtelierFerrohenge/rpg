@@ -27,14 +27,14 @@ Help(opts.GenerateHelpText(localEnv))
 
 env = localEnv.Clone()
 
-if not (os.path.isdir("../godot-cpp") and os.listdir("../godot-cpp")):
+if not (os.path.isdir("godot-cpp") and os.listdir("godot-cpp")):
     print_error("""godot-cpp is not available within this folder, as Git submodules haven't been initialized.
 Run the following command to download godot-cpp:
 
     git submodule update --init --recursive""")
     sys.exit(1)
 
-env = SConscript("../godot-cpp/SConstruct", {"env": env, "customs": customs})
+env = SConscript("godot-cpp/SConstruct", {"env": env, "customs": customs})
 
 env.Append(CPPPATH=["src/"])
 # Potentially hacky and temporary way to include subfolders
