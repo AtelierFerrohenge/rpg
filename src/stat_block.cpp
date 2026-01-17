@@ -18,11 +18,12 @@ void StatBlock::_bind_methods() {
 
     ADD_GROUP("Modifier", "modifier_");
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "modifier", PROPERTY_HINT_GROUP_ENABLE), "set_modifier", "is_modifier");
-    ADD_PROPERTY(PropertyInfo(Variant::INT, "modifier_type", PROPERTY_HINT_ENUM, "Additive,Multiplicative"), "set_modifier_type", "get_modifier_type");
+    ADD_PROPERTY(PropertyInfo(Variant::INT, "modifier_type", PROPERTY_HINT_ENUM, "Additive,Multiplicative,Overriding"), "set_modifier_type", "get_modifier_type");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "modifier_priority"), "set_modifier_priority", "get_modifier_priority");
     
     BIND_ENUM_CONSTANT(MODIFIER_TYPE_ADD);
     BIND_ENUM_CONSTANT(MODIFIER_TYPE_MULTIPLY);
+    BIND_ENUM_CONSTANT(MODIFIER_TYPE_OVERRIDE);
 }
 
 bool StatBlock::_set(const StringName &p_name, const Variant &p_value) {

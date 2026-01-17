@@ -15,6 +15,7 @@ public:
     enum ModifierType {
         MODIFIER_TYPE_ADD,
         MODIFIER_TYPE_MULTIPLY,
+        MODIFIER_TYPE_OVERRIDE,
     };
 
     StatBlock() = default;
