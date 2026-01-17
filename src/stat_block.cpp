@@ -1,5 +1,29 @@
 #include "stat_block.h"
 
+void StatBlock::set_modifier(bool p_modifier) {
+    modifier = p_modifier;
+}
+
+bool StatBlock::is_modifier() const {
+    return modifier;
+}
+
+void StatBlock::set_modifier_type(ModifierType p_modifier_type) {
+    modifier_type = p_modifier_type;
+}
+
+StatBlock::ModifierType StatBlock::get_modifier_type() const {
+    return modifier_type;
+}
+
+void StatBlock::set_modifier_priority(int p_modifier_priority) {
+    modifier_priority = p_modifier_priority;
+}
+
+int StatBlock::get_modifier_priority() const {
+    return modifier_priority;
+}
+
 StatDefDictionary StatBlock::get_stat_defs() const {
     StatDefDictionary ret;
     GDVIRTUAL_CALL(_get_stat_defs, ret);
@@ -49,28 +73,4 @@ void StatBlock::_get_property_list(List<PropertyInfo> *p_list) const {
     for(Variant &E : stat_defs.keys()) {
         p_list->push_back(PropertyInfo(static_cast<Variant::Type>(static_cast<int>(stat_defs[E])), static_cast<StringName>(E)));
     }
-}
-
-void StatBlock::set_modifier(bool p_modifier) {
-    modifier = p_modifier;
-}
-
-bool StatBlock::is_modifier() const {
-    return modifier;
-}
-
-void StatBlock::set_modifier_type(ModifierType p_modifier_type) {
-    modifier_type = p_modifier_type;
-}
-
-StatBlock::ModifierType StatBlock::get_modifier_type() const {
-    return modifier_type;
-}
-
-void StatBlock::set_modifier_priority(int p_modifier_priority) {
-    modifier_priority = p_modifier_priority;
-}
-
-int StatBlock::get_modifier_priority() const {
-    return modifier_priority;
 }
