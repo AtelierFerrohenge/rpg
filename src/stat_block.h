@@ -11,24 +11,11 @@ class StatBlock : public Resource {
     GDCLASS(StatBlock, Resource)
 
 public:
-    enum ModifierType {
-        MODIFIER_TYPE_ADD,
-        MODIFIER_TYPE_MULTIPLY,
-        MODIFIER_TYPE_OVERRIDE,
-    };
-
     StatBlock() = default;
     ~StatBlock() override = default;
 
     void set_stat_defs(const Ref<StatDefs> &p_stat_defs);
     Ref<StatDefs> get_stat_defs() const;
-
-    void set_modifier(bool p_modifier);
-    bool is_modifier() const;
-    void set_modifier_type(ModifierType p_modifier_type);
-    ModifierType get_modifier_type() const;
-    void set_modifier_priority(int p_modifier_priority);
-    int get_modifier_priority() const;
 
 protected:
     static void _bind_methods();
@@ -37,13 +24,6 @@ protected:
     void _get_property_list(List<PropertyInfo> *p_list) const;
 
 private:
-    TypedDictionary<StringName, Variant> stats;
-
     Ref<StatDefs> stat_defs;
-
-    bool modifier = false;
-    ModifierType modifier_type = MODIFIER_TYPE_ADD;
-    int modifier_priority = 0;
+    TypedDictionary<StringName, Variant> stats;
 };
-
-VARIANT_ENUM_CAST(StatBlock::ModifierType);
