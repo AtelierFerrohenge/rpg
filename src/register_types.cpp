@@ -9,6 +9,7 @@
 #include "stat_defs.h"
 #include "stat_block.h"
 #include "stat_modifier.h"
+#include "effect.h"
 #include "stat_set.h"
 
 using namespace godot;
@@ -21,6 +22,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
     GDREGISTER_VIRTUAL_CLASS(StatDefs);
     GDREGISTER_CLASS(StatBlock);
     GDREGISTER_CLASS(StatModifier);
+    GDREGISTER_CLASS(Effect);
     GDREGISTER_CLASS(StatSet);
 }
 
