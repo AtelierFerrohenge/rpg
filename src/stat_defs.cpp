@@ -1,6 +1,7 @@
 #include "stat_defs.h"
 
 TypedArray<StringName> StatDefs::get_stat_names() const {
+    // Verify if casting an Array to a TypedArray<StringName> is safe
     return get_stat_defs().keys();
 }
 

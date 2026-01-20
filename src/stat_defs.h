@@ -9,6 +9,7 @@ using namespace godot;
 
 using StatDefsDictionary = TypedDictionary<StringName, int>;
 
+// Figure out if it's possible to make a change to the script itself trigger notify_property_list_changed()
 class StatDefs : public Resource {
     GDCLASS(StatDefs, Resource)
 
@@ -16,6 +17,7 @@ public:
     StatDefs() = default;
     ~StatDefs() override = default;
 
+    // Review if I should use PackedStringArray instead
     TypedArray<StringName> get_stat_names() const;
 
     virtual StatDefsDictionary get_stat_defs() const;
